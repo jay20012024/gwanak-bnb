@@ -1,6 +1,19 @@
+"use client"
+
+import { useState } from "react"
 import { GuestSelector } from "./components/GuestSelector"
 
 export default function Home() {
+  const [adults, setAdults] = useState(0)
+  const [children, setChildren] = useState(0)
+  const [infants, setInfants] = useState(0)
+  const [isGuestOpen, setIsGuestOpen] = useState(false)
+
+  const totalGuests = adults + children
+  const guestText = totalGuests > 0 
+    ? `게스트 ${totalGuests}명${infants > 0 ? `, 유아 ${infants}명` : ""}`
+    : "게스트 추가"
+
   return (
     <main className="min-h-screen bg-[#f7f7f7] pt-8 px-4">
       <div className="max-w-4xl mx-auto">
@@ -22,14 +35,19 @@ export default function Home() {
 
           <div className="w-px h-8 bg-gray-200" />
 
-          {/* 여행자 — 아직 클릭 동작 없음 */}
-          <div className="flex-1 px-6 py-4">
+          {/* 여행자 */}
+          <div 
+            className="flex-1 px-6 py-4 cursor-pointer hover:bg-gray-50 rounded-full transition-colors"
+            onClick={() => setIsGuestOpen(!isGuestOpen)}
+          >
             <p className="text-xs font-semibold text-[#222]">여행자</p>
-            <p className="text-sm text-gray-400">게스트 추가</p>
+            <p className={`text-sm ${totalGuests > 0 ? "text-[#222]" : "text-gray-400"}`}>
+              {guestText}
+            </p>
           </div>
 
           {/* 검색 버튼 */}
-          <button
+          <button 
             className="bg-[#ff385c] hover:bg-[#e31c5f] text-white p-3 rounded-full mr-2 transition-colors"
             aria-label="검색"
           >
@@ -39,6 +57,20 @@ export default function Home() {
             </svg>
           </button>
         </div>
+
+        {/* Guest Selector Dropdown */}
+        {isGuestOpen && (
+          <div className="mt-2 ml-auto w-96 bg-white rounded-3xl shadow-xl border border-gray-200 p-6">
+            <GuestSelector
+              adults={adults}
+              children={children}
+              infants={infants}
+              onAdultsChange={setAdults}
+              onChildrenChange={setChildren}
+              onInfantsChange={setInfants}
+            />
+          </div>
+        )}
       </div>
     </main>
   )
