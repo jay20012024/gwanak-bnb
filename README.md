@@ -1,4 +1,4 @@
-# Gwanak BnB
+# Airbnb
 
 An Airbnb-style guest selector UI built with Next.js, focused on practicing React component design and state management.
 
@@ -19,7 +19,7 @@ An Airbnb-style guest selector UI built with Next.js, focused on practicing Reac
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/gwanak-bnb.git
+git clone https://github.com/jay20012024/gwanak-bnb.git
 cd gwanak-bnb
 npm install
 ```
